@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>视差滚动效果4(上下分别滚动) - Parallax</title>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .scene {
+      position: relative;
+      height: 3000px;
+    }
+
+    img {
+      position: absolute;
+    }
+
+    #pokemon5 {
+      width: 300px;
+      left: 500px;
+      
+    }
+
+    #pokemon8 {
+      width: 300px;
+      left: 100px;
+
+    }
+
+  </style>
+</head>
+<body>
+  <div id="container" class="scene">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/005.png" id="pokemon5" style="top: -1000px;">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/008.png" id="pokemon8" style="top: 1000px;">
+  </div>
+
+  <script>
+    var img1 = document.getElementById("pokemon5");
+    var img2 = document.getElementById("pokemon8");
+
+    //  各个secne的原始top值
+    var old_top1 = -1000,
+        old_top2 = 1000;
+
+    //  事件处理程序函数
+    function onScroll() {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; 
+      //  按照不同的速度移动，从而产生视差效果
+      img1.style.top = old_top1 + scrollTop*2 + "px"; //  图片1向上移动
+      img2.style.top = old_top2 - scrollTop*0 + "px"; //  由于视差效果，当图片1向上移动，图片2只要按照原来速度（跟着滚动条滚动）即可营造视差效果，而且这样就可以把两个图片在某一时刻处于同一水平线上
+    }
+
+    //  事件处理程序（兼容各个浏览器）
+    var EventUtil = {
+      addHandler: function (element, type, handler){
+        if (element.addEventListener) {  //  DOM2级事件处理程序
+          element.addEventListener(type, handler, false);
+        } else if (element.attachEvent) {  //  IE事件处理程序
+          element.attachEvent("on" + type, handler);  
+        } else {  //  DOM0级事件处理程序
+          element["on" + type] = handler;
+        }
+      }
+    };
+
+    //window.addEventListener("scroll", onScroll, false);  //  DOM2级事件处理程序
+    EventUtil.addHandler(window, "scroll", onScroll);  //  跨浏览器的事件处理程序
+
+  </script>
+</body>
+</html>

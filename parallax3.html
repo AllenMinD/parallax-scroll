@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>视差滚动效果3（分层不同速度滚动） - Parallax</title>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .scene {
+      position: relative;
+    }
+
+    img {
+      position: absolute;
+    }
+
+    #pokemon1 {
+      width: 150px;
+      top: 200px;
+      left: 50px;
+    }
+
+    #pokemon2 {
+      width: 300px;
+      left: 800px;
+      top: 450px;
+    }
+
+    #pokemon3 {
+      width: 600px;
+      left: 150px;
+    }
+
+    #pokemon4 {
+      width: 200px;
+      left: 800px;
+      top: 400px;
+    }
+
+    #pokemon5 {
+      width: 300px;
+      left: 500px;
+      top: 500px;
+    }
+
+    #pokemon6 {
+      top: 1200px;
+    }
+
+    #pokemon7 {
+      width: 150px;
+      left: 250px;
+      top: 550px;
+    }
+
+    #pokemon8 {
+      width: 300px;
+      left: 100px;
+      top: 900px;
+    }
+
+    #pokemon9 {
+      top: 1400px;
+      left: 400px;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="scene_back" class="scene" style="top: 0px">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/001.png" id="pokemon1">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/004.png" id="pokemon4">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/007.png" id="pokemon7">        
+  </div>
+  <div id="scene_center" class="scene" style="top: 200px">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/002.png" id="pokemon2">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/005.png" id="pokemon5">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/008.png" id="pokemon8">
+  </div>
+  <div id="scene_front" class="scene" style="top: 700px">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/003.png" id="pokemon3">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/006.png" id="pokemon6">
+    <img src="http://www.alloyteam.com/wp-content/uploads/2014/01/009.png" id="pokemon9">    
+  </div>
+
+  <script>
+    var sceneBack = document.getElementById("scene_back");
+    var sceneCenter = document.getElementById("scene_center");
+    var sceneFront = document.getElementById("scene_front");
+
+    //  各个secne的原始top值
+    var old_top1 = 0,
+        old_top2 = 200,
+        old_top3 = 700;
+
+    //  事件处理程序函数
+    function onScroll() {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; 
+      //  背景层、中间层、前景层按照不同的速度移动，从而产生视差效果
+      sceneBack.style.top = old_top1 + scrollTop*0.9 + "px"; //  背景层（速度最慢）
+      sceneCenter.style.top = old_top2 + scrollTop*0.5 + "px"; //中间层（速度中等）
+      sceneFront.style.top = old_top3 + scrollTop*0.3 + "px"; // 前景层（速度最快）
+    }
+
+    //  事件处理程序（兼容各个浏览器）
+    var EventUtil = {
+      addHandler: function (element, type, handler){
+        if (element.addEventListener) {  //  DOM2级事件处理程序
+          element.addEventListener(type, handler, false);
+        } else if (element.attachEvent) {  //  IE事件处理程序
+          element.attachEvent("on" + type, handler);  
+        } else {  //  DOM0级事件处理程序
+          element["on" + type] = handler;
+        }
+      }
+    };
+
+    //window.addEventListener("scroll", onScroll, false);  //  DOM2级事件处理程序
+    EventUtil.addHandler(window, "scroll", onScroll);  //  跨浏览器的事件处理程序
+
+  </script>
+</body>
+</html>

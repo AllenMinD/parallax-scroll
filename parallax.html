@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>视差滚动效果1（background-attachment原理） - Parallax</title>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    /*
+    background-position     设置背景图像的起始位置
+    background-repeat       设置是否及如何重复背景图像
+    background-size         规定背景图像的尺寸       
+    background-attachment   设置背景图像是否固定或者随着页面的其余部分滚动
+    */
+
+    .section1,
+    .section2,
+    .section3 {
+      height: 800px;
+      width: 1000px;
+      margin: 0 auto;
+      font: 18px "Microsoft YaHei";
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;  /* 把背景图像扩展至足够大，以使背景图像完全覆盖背景区域。*/
+      background-attachment: fixed;  /* 这步是关键！！！ */
+    }
+
+    .section1 {
+      background-image: url("20.jpg");
+    }
+     .section2 {
+      background-image: url("30.jpg");
+    }
+    .section3 {
+      background-image: url("43.jpg");
+    } 
+
+    .title {
+      position: relative;
+      top: 260px;
+      font-weight: bold;
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .content {
+      position: relative;
+      top: 280px;
+      color: white;
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .section1 .title {
+      color: white;
+    }
+
+    .section2 .title {
+      color: orange;
+    }
+
+    .section3 .title {
+      color: deeppink;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="parallax">
+    <div class="article section1">
+      <div class="title">
+        第一章 起源
+      </div>
+      <div class="content">
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+      </div>
+    </div>
+    <div class="article section2">
+      <div class="title">
+        第二章 世界
+      </div>
+      <div class="content">
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+      </div>      
+    </div>
+    <div class="article section3">
+      <div class="title">
+        第三章 妹纸
+      </div>
+      <div class="content">
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+      </div>      
+    </div>
+  </div>  
+
+</body>
+</html>

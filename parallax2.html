@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>视差滚动效果2（background-attachment加上CSS3特效滚动） - Parallax</title>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    /*
+    background-position     设置背景图像的起始位置
+    background-repeat       设置是否及如何重复背景图像
+    background-size         规定背景图像的尺寸       
+    background-attachment   设置背景图像是否固定或者随着页面的其余部分滚动
+    */
+
+    .section1,
+    .section2,
+    .section3 {
+      height: 800px;
+      width: 1000px;
+      margin: 0 auto;
+      font: 18px "Microsoft YaHei";
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;  /* 把背景图像扩展至足够大，以使背景图像完全覆盖背景区域。*/
+      background-attachment: fixed;  /* 这步是关键！！！ */
+    }
+
+    .section1 {
+      background-image: url("20.jpg");
+    }
+     .section2 {
+      background-image: url("30.jpg");
+    }
+    .section3 {
+      background-image: url("43.jpg");
+    } 
+
+    .title {
+      position: relative;
+      top: -100px;
+      opacity: 0;
+      font-weight: bold;
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .content {
+      position: relative;
+      top: 380px;
+      left: 1024px;
+      color: white;
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .section1 .title {
+      color: white;
+    }
+
+    .section2 .title {
+      left: -1000px;
+      top: 360px;
+      color: orange;
+    }
+
+    .section3 .title {
+      opacity: 0;
+      top: 360px;
+      color: deeppink;
+    }
+
+    /* 动画效果类 */
+    /* transition：CSS3的过渡效果，详细看w3school介绍 */
+    .title-anim1 {
+      opacity: 1!important;
+      top: 360px;
+      transition: all 1s;
+      -ms-transition: all 1s;
+      -moz-transition: all 1s;
+      -webkit-transition: all 1s;
+    }
+
+    .title-anim2 {
+      opacity: 1!important;
+      left: 0!important;
+      transition: all 1s;
+      -ms-transition: all 1s;
+      -moz-transition: all 1s;
+      -webkit-transition: all 1s;
+    }
+
+    .title-anim3 {
+      opacity: 1!important;
+      transition: all 1s;
+      -ms-transition: all 1s;
+      -moz-transition: all 1s;
+      -webkit-transition: all 1s;
+    }    
+
+    .content-anim {
+      left: 0px;
+      transition: all 1s;
+      -ms-transition: all 1s;
+      -moz-transition: all 1s;
+      -webkit-transition: all 1s;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="parallax">
+    <div id="article1" class="article section1">
+      <div id="title1" class="title">
+        第一章 起源
+      </div>
+      <div id="content1" class="content">
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+      </div>
+    </div>
+    <div class="article section2">
+      <div id="title2" class="title">
+        第二章 世界
+      </div>
+      <div id="content2" class="content">
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+      </div>      
+    </div>
+    <div class="article section3">
+      <div id="title3" class="title">
+        第三章 妹纸
+      </div>
+      <div id="content3" class="content">
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+        我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容
+      </div>      
+    </div>
+  </div>  
+
+  <script>
+    /* Element.clientHeight : 元素高度 + 上下padding */
+    var sectionHeight = document.getElementById("article1").clientHeight;
+    var title1 = document.getElementById("title1");
+    var title2 = document.getElementById("title2");
+    var title3 = document.getElementById("title3");
+    var content1 = document.getElementById("content1");
+    var content2 = document.getElementById("content2");
+    var content3 = document.getElementById("content3");
+
+    window.addEventListener("scroll", scrollHandler);
+
+    function scrollHandler(e) {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;  // 获取scrollTop
+
+      if (scrollTop > 0  && scrollTop < sectionHeight) {
+        title1.classList.add("title-anim1");
+        content1.classList.add("content-anim");
+      } else if (scrollTop >= sectionHeight && scrollTop < 2*sectionHeight) {
+        title2.classList.add("title-anim2");
+        content2.classList.add("content-anim");        
+      } else if (scrollTop >= 2*sectionHeight && scrollTop < 3*sectionHeight) {
+        title3.classList.add("title-anim3");
+        content3.classList.add("content-anim");  
+      }
+    }
+
+  </script>
+</body>
+</html>

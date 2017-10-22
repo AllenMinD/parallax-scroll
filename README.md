@@ -1,4 +1,3 @@
-# parallax-scroll  
 
 <h1>网页视差滚动效果</h1>
 
